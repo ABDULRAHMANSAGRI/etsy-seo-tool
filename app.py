@@ -2,8 +2,7 @@ import streamlit as st
 import json
 import requests
 from openai import OpenAI
-from google import genai
-from google.genai import types
+import google.generativeai as genai
 from streamlit_lottie import st_lottie
 
 # ==========================================
@@ -11,8 +10,6 @@ from streamlit_lottie import st_lottie
 # ==========================================
 st.set_page_config(page_title="Etsy SEO Optimizer", page_icon="🛍️", layout="centered")
 
-# --- MAGIC TRICK 1: Animated CSS Background ---
-# This creates a slow-moving, colorful gradient behind your app
 page_bg_css = """
 <style>
 .stApp {
@@ -20,14 +17,11 @@ page_bg_css = """
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
-
 @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-/* Make the main content box slightly transparent so the background shows through */
 [data-testid="stAppViewContainer"] > .main {
     background-color: rgba(255, 255, 255, 0.65);
     border-radius: 15px;
@@ -48,11 +42,10 @@ def load_lottieurl(url: str):
         return None
     return r.json()
 
-# Load a cool SEO/Shopping animation from LottieFiles
 lottie_anim = load_lottieurl("https://assets3.lottiefiles.com/packages/lf20_1cwng9r5.json")
 
 # ==========================================
-# 3. SIDEBAR (Unchanged)
+# 3. SIDEBAR
 # ==========================================
 with st.sidebar:
     st.header("⚙️ Settings")
@@ -65,7 +58,7 @@ with st.sidebar:
         st.markdown("[Get your OpenAI key here](https://platform.openai.com/api-keys)")
 
 # ==========================================
-# 4. CORE AI FUNCTION (Unchanged)
+# 4. CORE AI FUNCTION (Fixed for Stable Gemini)
 # ==========================================
 def generate_etsy_seo(provider, api_key, product_desc):
     system_prompt = "You are an expert Etsy SEO copywriter. Output JSON with: 1. 'title' 2. 'tags' (list of 13) 3. 'description'."
@@ -80,20 +73,21 @@ def generate_etsy_seo(provider, api_key, product_desc):
             return json.loads(response.choices[0].message.content)
             
         elif "Gemini" in provider:
-            client = genai.Client(api_key=api_key)
-            response = client.models.generate_content(
-                model='gemini-1.5-flash',
-                contents=system_prompt + "\n\nProduct:\n" + product_desc,
-                config=types.GenerateContentConfig(response_mime_type="application/json")
+            # Reverted to the stable google.generativeai library
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel(
+                model_name="gemini-1.5-flash",
+                generation_config={"response_mime_type": "application/json"}
             )
+            response = model.generate_content(system_prompt + "\n\nProduct:\n" + product_desc)
             return json.loads(response.text)
+            
     except Exception as e:
         return {"error": str(e)}
 
 # ==========================================
 # 5. MAIN APP INTERFACE WITH ANIMATIONS
 # ==========================================
-# --- MAGIC TRICK 2: Display the Lottie Animation ---
 col1, col2 = st.columns([1, 3])
 with col1:
     if lottie_anim:
@@ -117,15 +111,11 @@ if st.button("Generate SEO Listing", type="primary"):
             if "error" in result:
                 st.error(f"API Error: {result['error']}")
             else:
-                # --- MAGIC TRICK 3: Success Animation ---
                 st.balloons() 
-                
                 st.success("Listing Optimized!")
                 st.subheader("📌 Optimized Title")
                 st.code(result["title"], language=None)
-                
                 st.subheader("🏷️ 13 SEO Tags")
                 st.code(", ".join(result["tags"]), language=None)
-                
                 st.subheader("📝 Product Description")
                 st.write(result["description"])
