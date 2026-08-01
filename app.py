@@ -10,24 +10,44 @@ from streamlit_lottie import st_lottie
 # ==========================================
 st.set_page_config(page_title="Etsy SEO Optimizer", page_icon="🛍️", layout="centered")
 
+# --- MAGIC TRICK 1: Animated CSS Background + Text Contrast Fix ---
 page_bg_css = """
 <style>
+/* 1. The Animated Background */
 .stApp {
     background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
+
 @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+/* 2. The Glass Card */
 [data-testid="stAppViewContainer"] > .main {
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.75); /* Slightly less transparent for better reading */
     border-radius: 15px;
     padding: 2rem;
     margin-top: 2rem;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* 3. THE FIX: Force high-contrast dark text everywhere */
+p, h1, h2, h3, h4, h5, h6, span, label {
+    color: #1E293B !important; /* Dark slate gray */
+}
+
+/* 4. THE FIX: Make the output code blocks readable */
+code {
+    color: #0F172A !important; /* Very dark blue/black text */
+    background-color: #FFFFFF !important; /* Solid white background */
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 16px !important;
+    font-weight: 600;
 }
 </style>
 """
