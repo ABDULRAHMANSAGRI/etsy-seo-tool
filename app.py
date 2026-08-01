@@ -82,7 +82,7 @@ def generate_etsy_seo(provider, api_key, product_desc):
         elif "Gemini" in provider:
             client = genai.Client(api_key=api_key)
             response = client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-1.5-flash',
                 contents=system_prompt + "\n\nProduct:\n" + product_desc,
                 config=types.GenerateContentConfig(response_mime_type="application/json")
             )
