@@ -73,10 +73,10 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 4.2rem !important;
+    font-size: 3.2rem !important;
     line-height: 1.1 !important;
     font-weight: 800 !important;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.01em;
     padding-bottom: 10px;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
@@ -154,6 +154,10 @@ pre {
 .stTextInput input:focus, .stTextArea textarea:focus, .stNumberInput input:focus {
     border-color: #7C3AED !important;
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25) !important;
+}
+.stTextArea textarea {
+    height: 100px !important;
+    min-height: 100px !important;
 }
 
 /* ========================================
