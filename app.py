@@ -349,7 +349,7 @@ st.write("Stop guessing. Generate proven, search-friendly titles and tags for yo
 
 product_description = st.text_area("What are you selling?", placeholder="e.g., A handmade wooden desk organizer...", height=100)
 
-if st.button("Generate SEO Listing", type="primary"):
+if st.button("Generate SEO Listing", type="primary",use_container_width=False):
     if not api_key:
         st.error("⚠️ Please enter your API key in the sidebar first.")
     elif not product_description:
