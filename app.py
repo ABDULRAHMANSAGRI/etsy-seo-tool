@@ -15,78 +15,114 @@ page_bg_css = """
 <style>
 
 /* ========================================
-   1. ANIMATED GRADIENT BACKGROUND
+   0. FONTS
+======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* ========================================
+   1. BACKGROUND — subtle mesh, not a rainbow
 ======================================== */
 .stApp {
-    background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    background:
+        radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 10%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.08) 0%, transparent 45%),
+        #0B0E14;
+    background-attachment: fixed;
 }
 
 /* ========================================
-   2. GLASS CARD MAIN CONTAINER
+   2. MAIN CONTAINER — clean card, real depth
 ======================================== */
 [data-testid="stAppViewContainer"] > .main {
-    background-color: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 18px;
-    padding: 2.2rem 2.5rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(17, 20, 28, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem 3.5rem;
+    margin: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* ========================================
-   3. TEXT CONTRAST FIX
+   3. TYPOGRAPHY
 ======================================== */
-p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer"] {
-    color: #1E293B !important;
+p, span, label, li, div[data-testid="stMarkdownContainer"] {
+    color: #CBD5E1 !important;
+    font-size: 15.5px;
+    line-height: 1.6;
 }
-h1, h2, h3 {
+
+h1, h2, h3, h4 {
+    font-family: 'Sora', 'Inter', sans-serif !important;
+    color: #F8FAFC !important;
     font-weight: 700 !important;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+}
+
+/* App title gets a gradient treatment automatically via first h1 */
+h1 {
+    background: linear-gradient(135deg, #F8FAFC 30%, #A78BFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.6rem !important;
+    padding-bottom: 4px;
+}
+
+/* Muted subheading text right under the title */
+[data-testid="stMarkdownContainer"] > p:first-of-type {
+    color: #94A3B8 !important;
+    font-size: 1.05rem;
 }
 
 /* ========================================
    4. CODE BLOCKS
 ======================================== */
 code {
-    color: #0F172A !important;
-    background-color: #FFFFFF !important;
+    color: #C4B5FD !important;
+    background-color: rgba(167, 139, 250, 0.12) !important;
     border-radius: 6px;
     padding: 2px 8px;
-    font-size: 15px !important;
+    font-size: 14px !important;
     font-weight: 600;
 }
 pre {
-    background-color: #FFFFFF !important;
-    border-radius: 10px !important;
-    padding: 14px !important;
-    border: 1px solid rgba(0,0,0,0.08);
+    background-color: #0D1017 !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 /* ========================================
-   5. BUTTONS
+   5. BUTTONS — premium gradient + glow
 ======================================== */
 .stButton > button, .stDownloadButton > button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
     color: #FFFFFF !important;
     border: none;
     border-radius: 10px;
-    padding: 0.55rem 1.4rem;
+    padding: 0.65rem 1.6rem;
     font-weight: 600;
-    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    box-shadow:
+        0 4px 14px rgba(124, 58, 237, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .stButton > button:hover, .stDownloadButton > button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.55);
+    box-shadow:
+        0 8px 24px rgba(124, 58, 237, 0.5),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     color: #FFFFFF !important;
 }
 .stButton > button:active {
@@ -94,72 +130,133 @@ pre {
 }
 
 /* ========================================
-   6. INPUTS, SELECTBOX, TEXTAREA
+   6. TEXT INPUTS / TEXTAREA
 ======================================== */
 .stTextInput input, .stTextArea textarea, .stNumberInput input {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    color: #1E293B !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(0,0,0,0.15) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    color: #F1F5F9 !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding: 0.6rem 0.9rem !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.stSelectbox div[data-baseweb="select"] > div {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 8px !important;
-    color: #1E293B !important;
+.stTextInput input::placeholder, .stTextArea textarea::placeholder {
+    color: #64748B !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus, .stNumberInput input:focus {
+    border-color: #7C3AED !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25) !important;
 }
 
 /* ========================================
-   7. SIDEBAR
+   7. SELECTBOX — fixed contrast (was invisible before)
+======================================== */
+.stSelectbox div[data-baseweb="select"] > div {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 10px !important;
+    color: #F1F5F9 !important;
+}
+.stSelectbox div[data-baseweb="select"] span {
+    color: #F1F5F9 !important;
+}
+/* Dropdown menu popover */
+div[data-baseweb="popover"] li {
+    background-color: #161A24 !important;
+    color: #F1F5F9 !important;
+}
+div[data-baseweb="popover"] li:hover {
+    background-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+/* ========================================
+   8. SIDEBAR — refined glass panel
 ======================================== */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
-    backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(17, 20, 28, 0.95), rgba(11, 14, 20, 0.98));
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
 [data-testid="stSidebar"] * {
-    color: #1E293B !important;
+    color: #E2E8F0 !important;
+}
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+    background: none !important;
+    -webkit-text-fill-color: #F8FAFC !important;
+    font-size: 1.15rem !important;
+}
+[data-testid="stSidebar"] label {
+    color: #94A3B8 !important;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+[data-testid="stSidebar"] a {
+    color: #A78BFA !important;
+    font-weight: 500;
 }
 
 /* ========================================
-   8. METRICS
+   9. METRICS
 ======================================== */
 [data-testid="stMetric"] {
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+}
+[data-testid="stMetricValue"] {
+    color: #F8FAFC !important;
+    font-family: 'Sora', sans-serif !important;
 }
 
 /* ========================================
-   9. TABS
+   10. TABS
 ======================================== */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 8px;
+    gap: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .stTabs [data-baseweb="tab"] {
-    background-color: rgba(255,255,255,0.6);
+    background-color: transparent;
     border-radius: 8px 8px 0 0;
-    color: #1E293B !important;
+    color: #94A3B8 !important;
     font-weight: 600;
+    padding: 10px 18px;
 }
 .stTabs [aria-selected="true"] {
-    background-color: rgba(255,255,255,0.95) !important;
+    background-color: rgba(124, 58, 237, 0.12) !important;
+    color: #C4B5FD !important;
+    border-bottom: 2px solid #7C3AED;
 }
 
 /* ========================================
-   10. SCROLLBAR (optional polish)
+   11. EXPANDER / CONTAINER CARDS
 ======================================== */
-::-webkit-scrollbar {
-    width: 10px;
+[data-testid="stExpander"] {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
 }
-::-webkit-scrollbar-track {
-    background: transparent;
+
+/* ========================================
+   12. DIVIDER
+======================================== */
+hr {
+    border-color: rgba(255, 255, 255, 0.08) !important;
 }
+
+/* ========================================
+   13. SCROLLBAR
+======================================== */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-    background: rgba(118, 75, 162, 0.5);
+    background: rgba(124, 58, 237, 0.4);
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(118, 75, 162, 0.8);
+    background: rgba(124, 58, 237, 0.7);
 }
 
 </style>
