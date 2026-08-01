@@ -1,5 +1,5 @@
 ﻿streamlit
 openai
-google-genai
+google-generativeai
 streamlit-lottie
 requests
