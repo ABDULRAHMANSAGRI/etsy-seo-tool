@@ -13,42 +13,155 @@ st.set_page_config(page_title="Etsy SEO Optimizer", page_icon="🛍️", layout=
 # --- MAGIC TRICK 1: Animated CSS Background + Text Contrast Fix ---
 page_bg_css = """
 <style>
-/* 1. The Animated Background */
+
+/* ========================================
+   1. ANIMATED GRADIENT BACKGROUND
+======================================== */
 .stApp {
     background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
-
 @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* 2. The Glass Card */
+/* ========================================
+   2. GLASS CARD MAIN CONTAINER
+======================================== */
 [data-testid="stAppViewContainer"] > .main {
-    background-color: rgba(255, 255, 255, 0.75); /* Slightly less transparent for better reading */
-    border-radius: 15px;
-    padding: 2rem;
-    margin-top: 2rem;
+    background-color: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 2.2rem 2.5rem;
+    margin-top: 1.5rem;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-/* 3. THE FIX: Force high-contrast dark text everywhere */
-p, h1, h2, h3, h4, h5, h6, span, label {
-    color: #1E293B !important; /* Dark slate gray */
+/* ========================================
+   3. TEXT CONTRAST FIX
+======================================== */
+p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer"] {
+    color: #1E293B !important;
+}
+h1, h2, h3 {
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
 }
 
-/* 4. THE FIX: Make the output code blocks readable */
+/* ========================================
+   4. CODE BLOCKS
+======================================== */
 code {
-    color: #0F172A !important; /* Very dark blue/black text */
-    background-color: #FFFFFF !important; /* Solid white background */
+    color: #0F172A !important;
+    background-color: #FFFFFF !important;
     border-radius: 6px;
-    padding: 10px;
-    font-size: 16px !important;
+    padding: 2px 8px;
+    font-size: 15px !important;
     font-weight: 600;
 }
+pre {
+    background-color: #FFFFFF !important;
+    border-radius: 10px !important;
+    padding: 14px !important;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ========================================
+   5. BUTTONS
+======================================== */
+.stButton > button, .stDownloadButton > button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #FFFFFF !important;
+    border: none;
+    border-radius: 10px;
+    padding: 0.55rem 1.4rem;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.stButton > button:hover, .stDownloadButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.55);
+    color: #FFFFFF !important;
+}
+.stButton > button:active {
+    transform: translateY(0px);
+}
+
+/* ========================================
+   6. INPUTS, SELECTBOX, TEXTAREA
+======================================== */
+.stTextInput input, .stTextArea textarea, .stNumberInput input {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #1E293B !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+}
+.stSelectbox div[data-baseweb="select"] > div {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 8px !important;
+    color: #1E293B !important;
+}
+
+/* ========================================
+   7. SIDEBAR
+======================================== */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    backdrop-filter: blur(10px);
+}
+[data-testid="stSidebar"] * {
+    color: #1E293B !important;
+}
+
+/* ========================================
+   8. METRICS
+======================================== */
+[data-testid="stMetric"] {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ========================================
+   9. TABS
+======================================== */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+.stTabs [data-baseweb="tab"] {
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 8px 8px 0 0;
+    color: #1E293B !important;
+    font-weight: 600;
+}
+.stTabs [aria-selected="true"] {
+    background-color: rgba(255,255,255,0.95) !important;
+}
+
+/* ========================================
+   10. SCROLLBAR (optional polish)
+======================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(118, 75, 162, 0.5);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(118, 75, 162, 0.8);
+}
+
 </style>
 """
 st.markdown(page_bg_css, unsafe_allow_html=True)
