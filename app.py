@@ -73,14 +73,22 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 2.6rem !important;
-    padding-bottom: 4px;
+    font-size: 4.2rem !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.04em;
+    padding-bottom: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Muted subheading text right under the title */
 [data-testid="stMarkdownContainer"] > p:first-of-type {
     color: #94A3B8 !important;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    max-width: 640px;
+    margin-bottom: 1.8rem;
 }
 
 /* ========================================
