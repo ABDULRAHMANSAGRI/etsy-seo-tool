@@ -117,9 +117,9 @@ pre {
     color: #FFFFFF !important;
     border: none;
     border-radius: 10px;
-    padding: 0.65rem 1.6rem;
+    padding: 0.5rem 1.2rem;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: -0.01em;
     box-shadow:
         0 4px 14px rgba(124, 58, 237, 0.35),
@@ -136,6 +136,11 @@ pre {
 .stButton > button:active {
     transform: translateY(0px);
 }
+.stButton > button {
+    width: auto !important;
+    max-width: fit-content;
+}
+
 
 /* ========================================
    6. TEXT INPUTS / TEXTAREA
@@ -291,11 +296,11 @@ lottie_anim = load_lottieurl("https://assets3.lottiefiles.com/packages/lf20_1cwn
 # ==========================================
 with st.sidebar:
     st.header("⚙️ Settings")
-    provider = st.selectbox("Choose AI Provider", ["Google Gemini (Free)", "OpenAI (Paid)"])
+    provider = st.selectbox("Choose AI Provider", ["Google Gemini", "OpenAI"])
     api_key = st.text_input(f"Enter {provider.split(' ')[0]} API Key", type="password")
     
     if "Gemini" in provider:
-        st.markdown("[Get your FREE Gemini key here](https://aistudio.google.com/app/apikey)")
+        st.markdown("[Get your Gemini key here](https://aistudio.google.com/app/apikey)")
     else:
         st.markdown("[Get your OpenAI key here](https://platform.openai.com/api-keys)")
 
