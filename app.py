@@ -73,12 +73,15 @@ def generate_etsy_seo(provider, api_key, product_desc):
             return json.loads(response.choices[0].message.content)
             
         elif "Gemini" in provider:
-            # Reverted to the stable google.generativeai library
+            # Using the stable google.generativeai library (v0.8.6)
             genai.configure(api_key=api_key)
+            
+            # UPDATED: Use the current 2026 active model
             model = genai.GenerativeModel(
-                model_name="gemini-1.5-flash",
+                model_name="gemini-2.5-flash",
                 generation_config={"response_mime_type": "application/json"}
             )
+            
             response = model.generate_content(system_prompt + "\n\nProduct:\n" + product_desc)
             return json.loads(response.text)
             
